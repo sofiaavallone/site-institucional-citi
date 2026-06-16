@@ -17,7 +17,7 @@ export function NavLink({ href, label, active = false }: NavLinkProps) {
       href={href}
       aria-current={active ? "page" : undefined}
       className={[
-        "rounded-full border px-4 py-2 text-sm font-medium whitespace-nowrap",
+        "rounded-full border px-4 py-2 text-base font-medium whitespace-nowrap",
         "transition duration-200 outline-none",
         "focus-visible:ring-2 focus-visible:ring-white/40",
         // "Negrito" feito com text-shadow (engrossa a letra sem mudar a largura,

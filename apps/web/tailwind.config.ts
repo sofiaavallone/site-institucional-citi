@@ -10,6 +10,11 @@ const config: Config = {
           green: "#00DB58", // cor do botão "Solicitar diagnóstico" / destaque
         },
       },
+      // Fonte da marca (Neue Haas Grotesk Display) como sans padrão.
+      // Sobrescreve o stack default do Preflight, então TUDO usa a fonte.
+      fontFamily: {
+        sans: ["var(--font-display)", "system-ui", "-apple-system", "sans-serif"],
+      },
     },
   },
   plugins: [],

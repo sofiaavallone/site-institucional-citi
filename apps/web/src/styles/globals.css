@@ -3,11 +3,58 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
+}
+
+/* Rolagem suave ao clicar nas âncoras da navegação (Header/Footer).
+   scroll-padding-top compensa a Header fixa, pra a seção não ficar
+   escondida atrás dela ao parar a rolagem. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #ffffff;
+  font-family: var(--font-display), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Carrossel infinito de logos (ver LogoMarquee).
+   A lista é duplicada no JSX; -50% mostra exatamente o início da 2ª cópia,
+   então o loop é contínuo/sem emenda. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+/* Forma de vidro escalonada (seção de números). A máscara recorta o painel
+   — incluindo o backdrop-blur — no formato interligado com cantos côncavos.
+   preserveAspectRatio="none" + mask-size 100% 100% faz a forma esticar pro
+   tamanho do elemento (responsivo). */
+.stats-glass {
+  -webkit-mask: url("/shapes/stats-mask.svg") center / 100% 100% no-repeat;
+  mask: url("/shapes/stats-mask.svg") center / 100% 100% no-repeat;
 }

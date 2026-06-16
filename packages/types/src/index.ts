@@ -19,4 +19,13 @@ export interface User {
   updatedAt: string;
 }
 
+/** Dados enviados pelo formulário de contato/diagnóstico. */
+export interface ContactInput {
+  name: string;
+  email: string;
+  company?: string | null;
+  phone?: string | null;
+  message?: string | null;
+}
+
 export type AppEnvironment = "development" | "production" | "test";
