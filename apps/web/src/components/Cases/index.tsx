@@ -61,6 +61,11 @@ export function Cases() {
               aria-hidden
               className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"
             />
+            {/* Escurecimento uniforme (preto transparente) sobre o card */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-black/35"
+            />
 
             <div className="relative max-w-xl">
               {/* Pills */}
@@ -68,17 +73,35 @@ export function Cases() {
                 {current.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-citi-green/80 px-4 py-1.5 text-xs text-white md:text-sm"
+                    className="rounded-full border border-citi-green/80 px-4 py-1.5 text-xs text-citi-green md:text-sm"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
 
-              {/* Empresa */}
-              <p className="mt-6 text-lg text-citi-green md:mt-7 md:text-xl">
-                {current.company}
-              </p>
+              {/* Empresa: logo (caminho de imagem) ou texto */}
+              {current.company.startsWith("/") ? (
+                <div
+                  className={`mt-6 flex items-center overflow-hidden md:mt-7 ${
+                    current.logoBoxClassName ?? ""
+                  }`}
+                >
+                  <Image
+                    src={current.company}
+                    alt="Logo do cliente"
+                    width={140}
+                    height={40}
+                    className={`w-auto brightness-0 invert ${
+                      current.logoClassName ?? "h-14 md:h-16"
+                    }`}
+                  />
+                </div>
+              ) : (
+                <p className="mt-6 text-lg text-citi-green md:mt-7 md:text-xl">
+                  {current.company}
+                </p>
+              )}
 
               {/* Título */}
               <h3 className="mt-2 text-2xl font-light leading-[1.1] text-white md:text-3xl">
@@ -93,9 +116,9 @@ export function Cases() {
                 )}
               </h3>
 
-              {/* Descrição */}
+              {/* Descrição (trechos entre ** ficam em negrito) */}
               <p className="mt-4 max-w-lg text-sm leading-relaxed text-white md:text-base">
-                {current.body}
+                {renderBody(current.body)}
               </p>
 
               {/* Botão */}
@@ -149,6 +172,19 @@ export function Cases() {
         </div>
       </div>
     </section>
+  );
+}
+
+/** Renderiza o texto, deixando em negrito os trechos entre `**...**`. */
+function renderBody(text: string) {
+  return text.split(/\*\*(.+?)\*\*/).map((part, i) =>
+    i % 2 === 1 ? (
+      <strong key={i} className="font-semibold text-white">
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
   );
 }
 

@@ -9,6 +9,10 @@ export type Case = {
   tags: string[];
   /** Rótulo verde acima do título (logo/nome da empresa). */
   company: string;
+  /** Classe extra para ajustar o tamanho do logo (quando `company` é imagem). */
+  logoClassName?: string;
+  /** Altura da "janela" que corta o topo/base do logo (evita inflar o card). */
+  logoBoxClassName?: string;
   /** Título do case, quebrado em trechos para destacar partes em negrito. */
   title: TitleSegment[];
   /** Parágrafo descritivo. */
@@ -25,39 +29,43 @@ export type Case = {
  */
 export const cases: Case[] = [
   {
-    tags: ["Palavras chaves", "Exemplo", "Área do projeto"],
-    company: "Logo da empresa",
+    tags: ["Dashboards", "Dados", "loT"],
+    company: "/logos/cas_logo.svg",
     title: [
       { text: "Dashboards", bold: true },
       { text: " que transformam dados em " },
       { text: "decisão.", bold: true },
     ],
-    body: "Plataforma de visualização de dados desenhada para tornar informação complexa em decisão rápida, conectando múltiplas fontes em uma camada única de inteligência operacional.",
-    href: "#",
+    body: "Tecnologia para **monitoramento em tempo real** de dispositivos loT de energia, água e gás, com dashboards que apoiam a análise de desempenho e a tomada de decisões.",
+    href: "https://www.canva.com/design/DAG5vDwoUG4/inku4lOJY1oTh52MRN7w_Q/edit",
+    image: "/BG_10.png",
+  },
+  {
+    tags: ["Omnichannel", "UX/UI", "Performance"],
+    company: "/riachuelo_logo2.svg",
+    logoClassName: "h-48 md:h-64",
+    logoBoxClassName: "h-14 md:h-16",
+    title: [
+      { text: "Jornadas que unem o " },
+      { text: "físico", bold: true },
+      { text: " e o " },
+      { text: "digital", bold: true },
+      { text: "." },
+    ],
+    body: "Plataforma digital desenvolvida para integrar a experiência omnichannel da Riachuelo, unificando os canais físico e digital por meio de uma navegação intuitiva, arquitetura escalável e interfaces voltadas à conversão.",
+    href: "https://www.canva.com/design/DAHA9vEVcuQ/AMeLaqg4C883SndBRRgDdw/edit",
     image: "/BG_07.png",
   },
   {
-    tags: ["Palavras chaves", "Exemplo", "Área do projeto"],
-    company: "Logo da empresa",
+    tags: ["Data&IA", "Machine Learning", "Energia"],
+    company: "/logos/neoenergia.svg",
     title: [
-      { text: "Modelos de IA", bold: true },
-      { text: " que antecipam o " },
-      { text: "próximo passo.", bold: true },
+      { text: "Monitoramente inteligente", bold: true },
+      { text: " para uma operação mais " },
+      { text: "eficiente.", bold: true },
     ],
-    body: "Pipelines de Machine Learning sob medida que aprendem com o histórico do negócio para prever demanda, reduzir risco e automatizar decisões em escala.",
-    href: "#",
-    image: "/BG_11.png",
-  },
-  {
-    tags: ["Palavras chaves", "Exemplo", "Área do projeto"],
-    company: "Logo da empresa",
-    title: [
-      { text: "Software sob medida", bold: true },
-      { text: " que sustenta a " },
-      { text: "operação.", bold: true },
-    ],
-    body: "Aplicações construídas com rigor de engenharia para escalar com segurança, integrar sistemas legados e dar à empresa autonomia sobre o próprio produto.",
-    href: "#",
-    image: "/BG_12.png",
+    body: "Plataforma de monitoramento inteligente para ativos críticos da Neoenergia, utilizando machine learning para prever falhas e gerar análises que apoiam decisões estratégicas e aumentam a eficiência operacional.",
+    href: "https://www.canva.com/design/DAHAZftX7EE/hRbOdwZz4Sg6UptLBwxscg/edit",
+    image: "/BG_09.png",
   },
 ];
