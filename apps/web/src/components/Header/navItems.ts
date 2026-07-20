@@ -10,6 +10,6 @@ export type NavItem = {
  */
 export const navItems: NavItem[] = [
   { label: "Nossa Metodologia", href: "#metodologia" },
+  { label: "Porque o CITi", href: "#numeros" },
   { label: "Serviços", href: "#cases" },
-  { label: "Nosso diferencial", href: "#diferencial" },
 ];
