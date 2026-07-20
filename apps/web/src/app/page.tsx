@@ -2,7 +2,6 @@ import {
   Cases,
   Clients,
   Contact,
-  Differentials,
   Footer,
   Header,
   Hero,
@@ -19,7 +18,6 @@ export default function HomePage() {
       <Methodology />
       <Stats />
       <Cases />
-      <Differentials />
       <Contact />
       <Footer />
     </main>
