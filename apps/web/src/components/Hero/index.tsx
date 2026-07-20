@@ -39,7 +39,7 @@ export function Hero() {
             Inteligência aplicada para resultado de negócio.
           </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-white">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-white sm:text-xl">
             Ajudamos empresas em fase de escala a transformar Dados e IA em{" "}
             <strong className="font-semibold text-white">
               vantagem competitiva mensurável.
