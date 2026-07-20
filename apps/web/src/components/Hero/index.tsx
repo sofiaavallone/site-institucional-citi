@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { HeroBlob } from "./HeroBlob";
+// import { HeroBlob } from "./HeroBlob";
 
 /**
  * Seção hero (primeira dobra).
@@ -30,7 +30,7 @@ export function Hero() {
       </div>
 
       {/* Bolha 3D girando no scroll */}
-      <HeroBlob />
+      {/* <HeroBlob /> */}
 
       {/* Conteúdo */}
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 lg:px-10">
