@@ -77,7 +77,7 @@ export function Contact() {
       {/* Brilho verde de fundo */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-32 top-0 h-[34rem] w-[34rem] rounded-full bg-citi-green/[0.14] blur-[160px]"
+        className="pointer-events-none absolute -left-32 top-0 h-[34rem] w-[34rem] rounded-full bg-citi-green/[0.07] blur-[160px]"
       />
 
       <div className="relative mx-auto max-w-6xl px-6 lg:px-10">
