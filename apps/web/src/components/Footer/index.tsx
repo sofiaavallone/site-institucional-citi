@@ -10,7 +10,6 @@ const contactLinks = [
     href: "https://www.linkedin.com/company/citiufpe/",
   },
   { label: "Instagram", href: "https://www.instagram.com/citiufpe/" },
-  { label: "GitHub", href: "https://github.com/CITi-UFPE" },
 ];
 
 /**
