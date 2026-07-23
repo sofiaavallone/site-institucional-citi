@@ -37,7 +37,7 @@ export const cases: Case[] = [
       { text: "decisão.", bold: true },
     ],
     body: "Tecnologia para **monitoramento em tempo real** de dispositivos loT de energia, água e gás, com dashboards que apoiam a análise de desempenho e a tomada de decisões.",
-    href: "https://www.canva.com/design/DAG5vDwoUG4/inku4lOJY1oTh52MRN7w_Q/edit",
+    href: "https://canva.link/3jrsr4olzy78w9h",
     image: "/BG_10.png",
   },
   {
@@ -53,7 +53,7 @@ export const cases: Case[] = [
       { text: "." },
     ],
     body: "Plataforma digital desenvolvida para integrar a experiência omnichannel da Riachuelo, unificando os canais físico e digital por meio de uma navegação intuitiva, arquitetura escalável e interfaces voltadas à conversão.",
-    href: "https://www.canva.com/design/DAHA9vEVcuQ/AMeLaqg4C883SndBRRgDdw/edit",
+    href: "https://canva.link/kliy8454wie3r6n",
     image: "/BG_07.png",
   },
   {
@@ -65,7 +65,7 @@ export const cases: Case[] = [
       { text: "eficiente.", bold: true },
     ],
     body: "Plataforma de monitoramento inteligente para ativos críticos da Neoenergia, utilizando machine learning para prever falhas e gerar análises que apoiam decisões estratégicas e aumentam a eficiência operacional.",
-    href: "https://www.canva.com/design/DAHAZftX7EE/hRbOdwZz4Sg6UptLBwxscg/edit",
+    href: "https://canva.link/tg6tfsonzv3xezr",
     image: "/BG_09.png",
   },
 ];
