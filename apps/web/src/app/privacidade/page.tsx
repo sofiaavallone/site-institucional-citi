@@ -141,7 +141,7 @@ export default function PrivacidadePage() {
         sua experiência. Esta página descreve quais informações eles coletam, como
         as usamos e por que às vezes precisamos armazenar esses cookies. Também
         compartilharemos como você pode impedir que esses cookies sejam
-        armazenados, no entanto, isso pode fazer o downgrade ou 'quebrar' certos
+        armazenados, no entanto, isso pode fazer o downgrade ou &apos;quebrar&apos; certos
         elementos da funcionalidade do site.
       </p>
       <H3>4.2. Como usamos os cookies?</H3>

@@ -4,13 +4,13 @@ services:
     container_name: monorepo_postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: projectdb
+      POSTGRES_USER: citi_prod
+      POSTGRES_PASSWORD: kXc5T45/1nKjzwuGBqGozDBiZVT4UiV+
+      POSTGRES_DB: citi_prod
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d projectdb"]
+      test: ["CMD-SHELL", "pg_isready -U citi_prod -d citi_prod"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -23,22 +23,32 @@ services:
       dockerfile: apps/server/Dockerfile
     container_name: monorepo_server
     restart: unless-stopped
-    working_dir: /app
-    command: sh -c "pnpm install --filter server... && pnpm --filter server exec prisma db push && pnpm --filter server dev"
+    env_file:
+      - apps/server/.env
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
       PORT: 3001
-      WEB_URL: http://localhost:3000
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/projectdb?schema=public
-      DATABASE_DIRECT_URL: postgresql://postgres:postgres@postgres:5432/projectdb?schema=public
+      DATABASE_URL: postgresql://citi_prod:kXc5T45/1nKjzwuGBqGozDBiZVT4UiV+@postgres:5432/citi_prod?schema=public
+      DATABASE_DIRECT_URL: postgresql://citi_prod:kXc5T45/1nKjzwuGBqGozDBiZVT4UiV+@postgres:5432/citi_prod?schema=public
     depends_on:
       postgres:
         condition: service_healthy
     ports:
       - "3001:3001"
-    volumes:
-      - .:/app
-      - server_node_modules:/app/node_modules
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: https://api.citi.org.br
+        NEXT_PUBLIC_SITE_URL: https://citi.org.br
+    container_name: monorepo_web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
 
   adminer:
     image: adminer
@@ -51,4 +61,3 @@ services:
 
 volumes:
   database_data:
-  server_node_modules:
