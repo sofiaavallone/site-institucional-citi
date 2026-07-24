@@ -4,13 +4,11 @@ services:
     container_name: monorepo_postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: citi_prod
-      POSTGRES_PASSWORD: kXc5T45/1nKjzwuGBqGozDBiZVT4UiV+
-      POSTGRES_DB: citi_prod
-    ports:
-      - "5432:5432"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U citi_prod -d citi_prod"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -28,8 +26,8 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3001
-      DATABASE_URL: postgresql://citi_prod:kXc5T45/1nKjzwuGBqGozDBiZVT4UiV+@postgres:5432/citi_prod?schema=public
-      DATABASE_DIRECT_URL: postgresql://citi_prod:kXc5T45/1nKjzwuGBqGozDBiZVT4UiV+@postgres:5432/citi_prod?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
+      DATABASE_DIRECT_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
     depends_on:
       postgres:
         condition: service_healthy
