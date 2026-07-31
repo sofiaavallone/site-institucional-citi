@@ -29,16 +29,16 @@ export type Case = {
  */
 export const cases: Case[] = [
   {
-    tags: ["Dashboards", "Dados", "loT"],
-    company: "/logos/cas_logo.svg",
+    tags: ["Data&IA", "Machine Learning", "Energia"],
+    company: "/logos/neoenergia.svg",
     title: [
-      { text: "Dashboards", bold: true },
-      { text: " que transformam dados em " },
-      { text: "decisão.", bold: true },
+      { text: "Monitoramente inteligente", bold: true },
+      { text: " para uma operação mais " },
+      { text: "eficiente.", bold: true },
     ],
-    body: "Tecnologia para **monitoramento em tempo real** de dispositivos loT de energia, água e gás, com dashboards que apoiam a análise de desempenho e a tomada de decisões.",
-    href: "https://canva.link/3jrsr4olzy78w9h",
-    image: "/BG_10.png",
+    body: "Plataforma de monitoramento inteligente para ativos críticos da Neoenergia, utilizando machine learning para prever falhas e gerar análises que apoiam decisões estratégicas e aumentam a eficiência operacional.",
+    href: "https://canva.link/tg6tfsonzv3xezr",
+    image: "/BG_09.png",
   },
   {
     tags: ["Omnichannel", "UX/UI", "Performance"],
@@ -57,15 +57,15 @@ export const cases: Case[] = [
     image: "/BG_07.png",
   },
   {
-    tags: ["Data&IA", "Machine Learning", "Energia"],
-    company: "/logos/neoenergia.svg",
+    tags: ["Dashboards", "Dados", "loT"],
+    company: "/logos/cas_logo.svg",
     title: [
-      { text: "Monitoramente inteligente", bold: true },
-      { text: " para uma operação mais " },
-      { text: "eficiente.", bold: true },
+      { text: "Dashboards", bold: true },
+      { text: " que transformam dados em " },
+      { text: "decisão.", bold: true },
     ],
-    body: "Plataforma de monitoramento inteligente para ativos críticos da Neoenergia, utilizando machine learning para prever falhas e gerar análises que apoiam decisões estratégicas e aumentam a eficiência operacional.",
-    href: "https://canva.link/tg6tfsonzv3xezr",
-    image: "/BG_09.png",
+    body: "Tecnologia para **monitoramento em tempo real** de dispositivos loT de energia, água e gás, com dashboards que apoiam a análise de desempenho e a tomada de decisões.",
+    href: "https://canva.link/3jrsr4olzy78w9h",
+    image: "/BG_10.png",
   },
 ];
