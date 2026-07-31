@@ -46,6 +46,7 @@ export default function OpengraphImage() {
         {/* Fundo BG_10 da marca */}
         <img
           src={bgDataUri}
+          alt=""
           width={size.width}
           height={size.height}
           style={{
