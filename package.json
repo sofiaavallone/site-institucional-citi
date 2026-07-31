@@ -3,9 +3,8 @@
   "private": true,
   "packageManager": "pnpm@9.0.0",
   "scripts": {
-    "dev": "turbo run dev --filter=web --filter=mobile --parallel",
+    "dev": "turbo run dev --filter=web --parallel",
     "dev:web": "turbo run dev --filter=web",
-    "dev:mobile": "turbo run dev --filter=mobile",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,json,md,yml,yaml}\"",
@@ -22,6 +21,8 @@
   "devDependencies": {
     "turbo": "^2.0.0",
     "prettier": "^3.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "typescript": "^5.0.0"
   },
   "engines": {

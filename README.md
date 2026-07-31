@@ -19,7 +19,6 @@ Monorepo gerenciado por **Turborepo + pnpm**:
 |---|---|
 | `apps/web` | Site institucional em **Next.js 15** (App Router) + **Tailwind CSS**. |
 | `apps/server` | API em **Express + TypeScript** que recebe o formulário de contato e envia o lead por e-mail (Resend). |
-| `apps/mobile` | App Expo (não faz parte do escopo do site; mantido do boilerplate). |
 | `packages/types` | Tipos TypeScript compartilhados (ex.: `ContactInput`, `ApiResponse`). |
 | `packages/utils` | Utilitários compartilhados. |
 

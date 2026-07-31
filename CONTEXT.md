@@ -6,7 +6,7 @@
 
 ## O Projeto
 
-**monorepo-boilerplate** é um monorepo TypeScript com três aplicações e packages compartilhados, gerenciado com pnpm workspaces e Turborepo.
+**monorepo-boilerplate** é um monorepo TypeScript com duas aplicações e packages compartilhados, gerenciado com pnpm workspaces e Turborepo.
 
 ### Apps
 
@@ -14,7 +14,6 @@
 | -------------- | ------------- | ---------------------------------------- | --------- | ------ |
 | Front-end web  | `apps/web`    | Next.js 15 + React 19 + Tailwind CSS 3   | Local     | `3000` |
 | API / Back-end | `apps/server` | Node.js 22 + Express 4 + Prisma 7        | Docker    | `3001` |
-| App mobile     | `apps/mobile` | React Native + Expo SDK 52 + Expo Router | Local     |        |
 
 ### Infraestrutura
 
@@ -36,13 +35,11 @@
 ## Fluxo de Dados
 
 ```
-apps/web (Next.js)   ──┐
-                       ├── HTTP → apps/server (Express :3001) → Prisma → PostgreSQL (:5432)
-apps/mobile (Expo)   ──┘
+apps/web (Next.js) ── HTTP → apps/server (Express :3001) → Prisma → PostgreSQL (:5432)
 ```
 
-- Web e mobile se comunicam com o server via HTTP em `http://localhost:3001`
-- O server está no Docker; web e mobile estão na máquina local
+- O web se comunica com o server via HTTP em `http://localhost:3001`
+- O server está no Docker; o web roda na máquina local
 - O Prisma 7 lê a URL do banco do `prisma.config.ts` (que aponta para `process.env.DATABASE_URL`)
 - Em runtime, o server instancia `PrismaClient` com o adapter `@prisma/adapter-pg`
 
@@ -186,12 +183,12 @@ pnpm db:generate  # Regenera o Prisma Client após mudanças no schema
 
 ### Por que o projeto roda sem `.env` em dev (e por que isso muda em produção)
 
-Em desenvolvimento, dá pra subir back, front, mobile e banco sem criar nenhum `.env`. Isso acontece por **dois mecanismos distintos**:
+Em desenvolvimento, dá pra subir back, front e banco sem criar nenhum `.env`. Isso acontece por **dois mecanismos distintos**:
 
 1. **Server e PostgreSQL** rodam no Docker e recebem as variáveis pelo bloco `environment:` do `docker-compose.yml` (`DATABASE_URL`, `PORT`, `WEB_URL`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`). Os processos não leem nenhum `.env`; o Docker injeta tudo direto no container.
-2. **Web e Mobile** rodam localmente e não dependem do Docker. Funcionam sem `.env` porque o código tem fallback hardcoded em `apps/web/src/lib/api.ts` e `apps/mobile/src/lib/api.ts`: `process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001"` (e `EXPO_PUBLIC_API_URL` no mobile). O fallback bate com a porta que o Docker expõe, então o client acha o server sem configuração extra.
+2. **Web** roda localmente e não depende do Docker. Funciona sem `.env` porque o código tem fallback hardcoded em `apps/web/src/lib/api.ts`: `process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001"`. O fallback bate com a porta que o Docker expõe, então o client acha o server sem configuração extra.
 
-**Em produção isso muda:** as credenciais do banco no `docker-compose.yml` estão em texto puro, o que é aceitável só pra dev. No deploy, troca-se o bloco `environment:` do compose por `env_file:` apontando para um `.env` fora do Git, ou usa-se secrets manager (Vault, AWS Secrets, Doppler). Os fallbacks `?? "http://localhost:3001"` no client também perdem sentido: o build do Next/Expo precisa receber a URL real via variável de ambiente no momento do build.
+**Em produção isso muda:** as credenciais do banco no `docker-compose.yml` estão em texto puro, o que é aceitável só pra dev. No deploy, troca-se o bloco `environment:` do compose por `env_file:` apontando para um `.env` fora do Git, ou usa-se secrets manager (Vault, AWS Secrets, Doppler). O fallback `?? "http://localhost:3001"` no client também perde sentido: o build do Next precisa receber a URL real via variável de ambiente no momento do build.
 
 ### `apps/web/.env.local`
 
@@ -211,14 +208,6 @@ WEB_URL=http://localhost:3000
 
 > Para rodar comandos do Prisma CLI fora do Docker (ex: `prisma db push` local), exporte `DATABASE_URL` apontando para `localhost:5432` no shell antes do comando.
 
-### `apps/mobile/.env`
-
-```env
-EXPO_PUBLIC_API_URL=http://localhost:3001
-```
-
-> `EXPO_PUBLIC_` é obrigatório para variáveis acessadas no código JavaScript do Expo.
-
 ---
 
 ## Comandos do Projeto
@@ -234,9 +223,8 @@ pnpm docker:logs      # Logs do server em tempo real
 pnpm docker:rebuild   # Rebuilda imagem do server e reinicia
 
 # Desenvolvimento local
-pnpm dev              # web + mobile em paralelo
+pnpm dev              # Só Next.js (:3000)
 pnpm dev:web          # Só Next.js (:3000)
-pnpm dev:mobile       # Só Expo
 
 # Banco
 pnpm db:push          # Sincroniza schema (dev)
@@ -251,7 +239,7 @@ pnpm format           # Prettier em tudo
 
 ### Equivalentes "clássicos" (alternativos)
 
-Os scripts acima são wrappers. Os comandos canônicos do Docker, Prisma, Next.js e Expo seguem funcionando. Use o que for mais natural ou se estiver depurando algo que precise do CLI direto.
+Os scripts acima são wrappers. Os comandos canônicos do Docker, Prisma e Next.js seguem funcionando. Use o que for mais natural ou se estiver depurando algo que precise do CLI direto.
 
 ```bash
 # Docker (na raiz)
@@ -268,7 +256,6 @@ npx prisma studio                                 # ≈ pnpm db:studio
 
 # Dev local (dentro do app correspondente)
 cd apps/web && pnpm dev                           # ≈ pnpm dev:web (next dev)
-cd apps/mobile && pnpm dev                        # ≈ pnpm dev:mobile (expo start)
 ```
 
 > Para rodar Prisma CLI fora do Docker, exporte `DATABASE_URL` apontando para `localhost:5432` antes (o host `postgres` só resolve dentro da rede do compose).
@@ -308,17 +295,6 @@ monorepo-boilerplate/
 │   │   ├── tsconfig.json       # extends ../../packages/config/typescript/base.json
 │   │   └── package.json        # name: "server"
 │   │
-│   └── mobile/
-│       ├── src/
-│       │   ├── app/            # Expo Router, telas
-│       │   ├── components/     # Componentes React Native
-│       │   ├── hooks/          # Custom hooks
-│       │   └── lib/            # Helpers
-│       ├── assets/
-│       ├── app.json
-│       ├── tsconfig.json
-│       └── package.json        # name: "mobile", main: "expo-router/entry"
-│
 ├── packages/
 │   ├── types/src/index.ts      # @repo/types
 │   ├── utils/src/index.ts      # @repo/utils
@@ -345,18 +321,17 @@ monorepo-boilerplate/
 | Turborepo                       | Paraleliza tasks, cache inteligente, garante ordem de build (packages antes dos apps)       |
 | Express em vez de Fastify       | API minimalista e familiar para a maioria dos times, com ecossistema de middlewares maduro  |
 | Prisma v7 com driver adapter    | URL fica no `prisma.config.ts`, runtime usa `@prisma/adapter-pg`, alinhado ao Prisma atual  |
-| Docker só para server + banco   | Web e mobile precisam de hot-reload imediato; Docker adicionaria latência                   |
+| Docker só para server + banco   | O web precisa de hot-reload imediato; Docker adicionaria latência                            |
 | `@postgres:5432` no Docker      | Containers se comunicam pelo nome do serviço, não por `localhost`                           |
 | Tailwind CSS v3                 | Versão estável e madura, com PostCSS pipeline tradicional                                   |
-| Expo Router                     | Mesma API mental do Next.js App Router, facilita codar os dois em paralelo                  |
-| Axios 1.7.9                    | Tipagem genérica nas respostas, interceptors prontos para auth/refresh, mesma API em web e mobile, transformação JSON automática |
-| `NEXT_PUBLIC_` e `EXPO_PUBLIC_` | Prefixos obrigatórios para expor variáveis ao bundle do client (browser/app)                |
+| Axios 1.7.9                    | Tipagem genérica nas respostas, interceptors prontos para auth/refresh e transformação JSON automática |
+| `NEXT_PUBLIC_`                 | Prefixo obrigatório para expor variáveis ao bundle do browser                               |
 
 ---
 
 ## Template de Integração (já implementado)
 
-O boilerplate inclui uma integração ponta-a-ponta de exemplo: `GET /users` no server, consumido pelo web e pelo mobile. **Use como referência ao criar novos recursos.**
+O boilerplate inclui uma integração ponta-a-ponta de exemplo: `GET /users` no server, consumido pelo web. **Use como referência ao criar novos recursos.**
 
 ### Server
 
@@ -369,10 +344,10 @@ src/index.ts                        → app.use("/users", usersRouter)
 
 ### Cliente HTTP compartilhado em forma
 
-Web e mobile usam **Axios**. Cada app cria sua própria instância em `lib/api.ts` via `axios.create({ baseURL })` e exporta tanto a instância `api` (para chamadas avançadas: `api.post`, `api.put`, interceptors, headers customizados) quanto o helper `apiGet<T>` para o caso comum.
+O web usa **Axios** e cria sua própria instância em `lib/api.ts` via `axios.create({ baseURL })`, exportando tanto a instância `api` (para chamadas avançadas: `api.post`, `api.put`, interceptors, headers customizados) quanto o helper `apiGet<T>` para o caso comum.
 
 ```typescript
-// apps/web/src/lib/api.ts (mobile usa EXPO_PUBLIC_API_URL no lugar)
+// apps/web/src/lib/api.ts
 import axios from "axios";
 import type { ApiResponse } from "@repo/types";
 
@@ -397,7 +372,7 @@ export async function apiGet<T>(path: string, fallback: T): Promise<ApiResult<T>
 }
 ```
 
-Diferenças por app: `API_URL` vem de `NEXT_PUBLIC_API_URL` (web) ou `EXPO_PUBLIC_API_URL` (mobile); o web acrescenta `Cache-Control: no-store` na chamada por causa do Server Component cacheável. O helper desempacota `ApiResponse<T>` e sempre retorna `{ data, isMocked }`.
+`API_URL` vem de `NEXT_PUBLIC_API_URL`; o web acrescenta `Cache-Control: no-store` na chamada por causa do Server Component cacheável. O helper desempacota `ApiResponse<T>` e sempre retorna `{ data, isMocked }`.
 
 **Quando usar `api` direto vs `apiGet`:**
 
@@ -408,15 +383,11 @@ Para adicionar interceptors (ex: anexar token JWT, refresh automático, log cent
 
 ### Fallback offline
 
-O `fallback` é **obrigatório** e é usado automaticamente quando a requisição falha (server fora do ar, sem rede, URL errada, status non-2xx). Cada app mantém seus mocks em `src/lib/mocks.ts`. Quando `isMocked === true`, a UI deve mostrar um aviso explícito de que está sem comunicação com o servidor (banner amarelo nas telas atuais). Isso permite rodar `pnpm dev:web` / `pnpm dev:mobile` sem precisar subir o Docker.
+O `fallback` é **obrigatório** e é usado automaticamente quando a requisição falha (server fora do ar, sem rede, URL errada, status non-2xx). O web mantém seus mocks em `src/lib/mocks.ts`. Quando `isMocked === true`, a UI deve mostrar um aviso explícito de que está sem comunicação com o servidor (banner amarelo nas telas atuais). Isso permite rodar `pnpm dev:web` sem precisar subir o Docker.
 
 ### Web
 
 `apps/web/src/app/page.tsx` é um **Server Component** que faz `await apiGet<User[]>("/users", mockUsers)` no render e renderiza o banner condicional quando `isMocked`. Use `cache: "no-store"` se precisar de dados sempre frescos (já está no helper).
-
-### Mobile
-
-`apps/mobile/src/app/index.tsx` é client-side: `useEffect` chama `apiGet<User[]>("/users", mockUsers)` e popula `useState` com `data` e `isMocked`. Renderiza com `FlatList` e mostra o banner offline quando `isMocked`.
 
 ### Para adicionar uma nova entidade (`<nome>`)
 
