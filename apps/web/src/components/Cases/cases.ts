@@ -37,7 +37,7 @@ export const cases: Case[] = [
       { text: "eficiente.", bold: true },
     ],
     body: "Plataforma de monitoramento inteligente para ativos críticos da Neoenergia, utilizando machine learning para prever falhas e gerar análises que apoiam decisões estratégicas e aumentam a eficiência operacional.",
-    href: "https://canva.link/tg6tfsonzv3xezr",
+    href: "/cases/neoenergia",
     image: "/BG_09.png",
   },
   {
