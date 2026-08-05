@@ -58,7 +58,7 @@ export function Header() {
 
         {/* CTA (escondido no mobile — vai pro drawer) */}
         <Link
-          href="#diagnostico"
+          href="https://formulario-email-marketing.vercel.app/"
           className="hidden rounded-full bg-citi-green px-6 py-2.5 text-base font-bold text-black outline-none transition hover:brightness-110 focus-visible:ring-2 focus-visible:ring-citi-green/60 md:inline-flex"
         >
           Solicitar diagnóstico
@@ -139,7 +139,7 @@ export function Header() {
           </ul>
 
           <Link
-            href="#diagnostico"
+            href="https://formulario-email-marketing.vercel.app/"
             onClick={() => setOpen(false)}
             className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-citi-green px-6 py-3.5 text-base font-bold text-black outline-none transition hover:brightness-110 focus-visible:ring-2 focus-visible:ring-citi-green/60"
           >
