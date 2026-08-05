@@ -49,7 +49,7 @@ export function Hero() {
 
           <div className="mt-10 flex flex-col items-stretch gap-4 sm:flex-row sm:flex-wrap sm:items-center">
             <Link
-              href="https://formulario-email-marketing.vercel.app/"
+              href="#diagnostico"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-citi-green px-6 py-3 text-lg font-bold text-black outline-none transition hover:brightness-110 focus-visible:ring-2 focus-visible:ring-citi-green/60"
             >
               Solicitar diagnóstico
